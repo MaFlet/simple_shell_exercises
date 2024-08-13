@@ -10,6 +10,11 @@ Exercises
 0. getppid
 Write a program that prints the PID of the parent process. Run your program several times within the same shell. It should be the same. Does echo $$ print the same value? Why?
 
+- run the checker: gcc -Wall -Werror -pedantic pid.c -o ppid
+- run ./ppid
+- run this couple of times and it will print the different unique process ID.
+- run echo $$ it couple of times and it will run but print the same process ID over and over again. ($$ is defined to return the current process ID of the parent in a subshell.
+
 1. /proc/sys/kernel/pid_max
 Write a shell script that prints the maximum value a process ID can be.
 
