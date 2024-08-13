@@ -18,6 +18,9 @@ Write a program that prints the PID of the parent process. Run your program seve
 1. /proc/sys/kernel/pid_max
 Write a shell script that prints the maximum value a process ID can be.
 
+- echo will spill the content of the shell script
+- $ will get anything inside the pid_max
+
 Arguments
 The command line arguments are passed through the main function: int main(int ac, char **av);
 
