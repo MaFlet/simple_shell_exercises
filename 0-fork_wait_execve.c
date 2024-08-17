@@ -10,38 +10,35 @@
 */
 int main(void)
 {
-pid_t my_pid;
-pid_t child_pid = 1;
-int i = 0;
-int status;
-char *argv[] = {"bin/ls", "-l", "tmp/", NULL};
-my_pid = getpid();
-while (i <= 4 && (child_pid != 0))
-{
+pid_t my_pid, child_pid;
+int child_status;
+for (int i = 0; i < 5; i++)
 child_pid = fork();
-if (child_pid == -1)
+my_pid = getpid();
+usleep(1000);
+if (child_pid > 0)
 {
-perror("Error:");
-return (1);
-{
-wait(&status);
-i++;
+printf("I'm the parent, and my pid is %d\n", my_pid);
+printf("My child's pid is %d\n", child_pid);
+wait(&child_status);
+printf("Child returned status %d\n", child_status);
 }
-if (child_pid == 0)
+else if
+(child_pid == 0)
 {
-printf("------\n\n");
-printf("Child ID: %u\n\nID Father ID: %u\n\n", getpid(), getppid());
-printf("-----\n\n");
+char *args[5];
+args[1] = "ls";
+args[2] = "-l";
+args[3] = "/tmp";
+args[4] = "NULL";
+args[5] = "NULL";
+execvp(args[0], args);
+printf("I'm the child, and my pid is %d\n", my_pid);
 }
 else
 {
-printf("%u Father ID is: %u\n", my_pid, child_pid);
+printf("Something went wrong. Fork returned %d\n.", child_pid);
 }
-if (execve(argv[0], argv, NULL) == -1)
-{
+printf("Process %d exiting.\n", my_pid);
+return (1);
 }
-return (0);
-}
-}
-}
-
